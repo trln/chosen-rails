@@ -10,10 +10,6 @@ class SourceFile < Thor
     get "#{remote}/raw/#{branch}/public/chosen-sprite.png", 'images/chosen-sprite.png'
     get "#{remote}/raw/#{branch}/public/chosen-sprite@2x.png", 'images/chosen-sprite@2x.png'
     get "#{remote}/raw/#{branch}/sass/chosen.scss", 'stylesheets/chosen-base.scss'
-    get "#{remote}/raw/#{branch}/coffee/lib/abstract-chosen.coffee", 'javascripts/lib/abstract-chosen.coffee'
-    get "#{remote}/raw/#{branch}/coffee/lib/select-parser.coffee", 'javascripts/lib/select-parser.coffee'
-    get "#{remote}/raw/#{branch}/coffee/chosen.jquery.coffee", 'javascripts/chosen.jquery.coffee'
-    get "#{remote}/raw/#{branch}/coffee/chosen.proto.coffee", 'javascripts/chosen.proto.coffee'
     get "#{remote}/raw/#{branch}/package.json", 'package.json'
     bump_version
   end
@@ -21,11 +17,10 @@ class SourceFile < Thor
   desc 'eject class from closure', 'eject javascript library class from closure'
   def eject_javascript_class_from_closure
     self.destination_root = 'vendor/assets'
-    inside destination_root do
-      append_to_file 'javascripts/lib/abstract-chosen.coffee' do
+      append_to_file 'javascripts/lib/abstract-chosen.js' do
         "\nwindow.AbstractChosen = AbstractChosen\n"
       end
-      append_to_file 'javascripts/lib/select-parser.coffee' do
+      append_to_file 'javascripts/lib/select-parser.js' do
         "\n\nwindow.SelectParser = SelectParser\n"
       end
     end

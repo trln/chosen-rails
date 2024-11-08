@@ -2,7 +2,15 @@
 
 [Chosen](https://github.com/harvesthq/chosen) is a library for making long, unwieldy select boxes more user friendly.
 
-The `trln-chosen-rails` gem integrates the `Chosen` with the Rails asset pipeline.  This project is a fork of the original `chosen-rails` which removes the dependency on the now deprecated `sass` gem.
+The `trln-chosen-rails` gem is a fork of the original `chosen-rails`
+gem and integrates the `Chosen` with the Rails asset pipeline. This fork removes dependencies on `coffee-rails` and on any particular Sass implementation (the original had a dependency on `sassc-rails`).
+
+One tradeoff is that the version of the `chosen` library is frozen at version 1.8.7.
+
+To make full use of this gem you will need to either add a Sass compilation
+step to your asset handling or compile the bundled
+`vendor/assets/stylesheets/chosen-base.scss` file you can find in this gem's
+directory and add that to your Rails application's `assets/stylesheets` directory.  Since the TRLN Blacklight implementations all employ the use of Sass, this should be unnecessary for members of the consortium.
 
 ## Usage
 
@@ -20,8 +28,6 @@ Then run `bundle install`
 
 You can get jquery via [jquery-rails](https://github.com/rails/jquery-rails).
 
-Please consider [jquery-turbolinks](https://github.com/kossnocorp/jquery.turbolinks) if you have turbolinks issues for Rails 4 +.
-
 ### Include chosen javascript assets
 
 Add to your `app/assets/javascripts/application.js` if use with jQuery
@@ -29,13 +35,6 @@ Add to your `app/assets/javascripts/application.js` if use with jQuery
 ```coffee
 //= require jquery
 //= require chosen-jquery
-```
-
-Or with Prototype
-
-```coffee
-//= require jquery
-//= require chosen-prototype
 ```
 
 ### Include chosen stylesheet assets
@@ -54,27 +53,7 @@ For rails 6, remember to add `javascript_include_tag` in `app/views/layouts/appl
 <%= javascript_include_tag 'application' %>
 ```
 
-Add to one coffee script file, like `scaffold.js.coffee`
-
-```coffee
-$ ->
-  # enable chosen js
-  $('.chosen-select').chosen
-    allow_single_deselect: true
-    no_results_text: 'No results matched'
-    width: '200px'
-```
-
-Notice: `width` option is required since `Chosen 0.9.15`.
-
-And this file must be included in `application.js`
-
-```coffee
-//= require chosen-jquery
-//= require scaffold
-```
-
-Also add the class to your form field
+Add the class to your form field
 
 ```erb
 <%= f.select :author,
@@ -96,7 +75,7 @@ If you use simple form as form builder
 
 ### Deployment
 
-Since version 0.13.0, non-digested assets of `chosen-rails` will simply be copied from digested assets.
+Non-digested assets of `trln-chosen-rails` will simply be copied from digested assets.
 
 ## RSpec helpers
 `chosen-rails` provides RSpec feature helper methods that allow users to select or unselect options from both single and multiple chosen elements. Add the following to your `spec/rails_helper.rb` (or `spec/spec_helper.rb`):

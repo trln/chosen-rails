@@ -13,13 +13,13 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = 'trln-chosen-rails'
   gem.require_paths = ['lib']
+  gem.required_ruby_version = '>= 3.0'
   gem.version       = Chosen::Rails::VERSION
   gem.license       = 'MIT'
 
-  gem.add_dependency 'railties', '>= 3.0'
-  gem.add_dependency 'coffee-rails', '>= 3.2'
-  gem.add_dependency 'sassc-rails', '>= 2.1.2'
-  gem.add_development_dependency 'bundler', '>= 1.0'
-  gem.add_development_dependency 'rails', '>= 3.0'
-  gem.add_development_dependency 'thor', '>= 0.14'
+  gem.add_dependency 'railties', '>= 6.0', '< 8'
+  #gem.add_dependency 'coffee-rails', '>= 3.2'
+  gem.add_development_dependency 'bundler', '>= 2.0', '< 3'
+  gem.add_development_dependency 'rails', '>= 6.0', '< 8'
+  gem.add_development_dependency 'thor', '>= 0.14', '< 2'
 end
